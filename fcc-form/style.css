@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {background-color: hsl(136, 36%, 26%);}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: black;
+  margin: 0;
+}
+
+h1 {
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 0px;
+}
+
+p {
+  font-size: 1.125rem;
+}
+
+h1,
+p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  display: flex;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #dbdbdb;
+  margin-left: 10%;
+}
+
+
+
+#description {
+  font-style: italic;
+  font-weight: 200;
+  text-align: center;
+  color: rgb(200, 200, 200)
+}
+
+/* form */
+
+form {
+  background: hsl(137, 36%, 26%);
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+  color: white;
+  min-width: fit-content;
+  max-width: 20cm;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#form-section{
+    box-sizing: border;
+    background-color: hsl(136, 37%, 35%);
+    border-radius: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-width: 100%;
+    max-width: 20cm;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+    box-shadow: 4px 0px 33px -12px rgba(0,0,0,0.82);
+    overflow-wrap: normal;
+    height: fit-content;
+}
+
+h2{
+    font-weight: 200;
+    text-align: center;
+    margin: 5px;
+}
+
+#form-group {
+    margin: 0 auto 1.25rem auto;
+    padding: 0;
+    width: auto;
+}
+
+.input-radio,
+.input-checkbox {
+  display: inline-block;
+  margin-right: 0.625rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+
+.input-radio{margin-left: 10%;}
+
+form input[type=text], input[type=email], input[type=number]{   border-radius: 15px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+input:not([type=radio]) {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.6);
+}
+
+input[type=date] {
+  margin-left: 10%;
+}
+
+#dropdown {
+    margin-left: 10%;
+}
+
+textarea {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 40px;
+    height: fit-content;
+}
+
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-green);
+  color: inherit;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+textarea[name="pthistory"]{
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+}

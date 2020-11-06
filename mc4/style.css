@@ -1,0 +1,91 @@
+html{
+    background-color: #000000;
+    font-family: monospace;
+}
+
+body{
+    height: 90%;
+}
+
+#top{
+    color: white;
+    height: 10%;
+}
+
+#gameframe{
+    height: 100%;
+    width: fit-content;
+    margin: auto;
+    background-color: #101010;
+    padding: 3vh;
+}
+
+#row{
+    width:  100%;
+    margin: 1vh;
+    display: flex;
+}
+
+#rowNumberCell{
+    color: rgb(170, 170, 170);
+    display: flex;
+    background-color: rgb(40, 0, 173);
+    height: 8vh;
+    width: fit-content;
+    min-width: 8vh;
+    border-radius: 12%;
+    margin-right: 2vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 6vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.cell{
+    display: flex;
+    background-color: rgb(77, 77, 77);
+    border-color: rgb(136, 116, 136);
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 10vh;
+    width: 10vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-direction: row;
+}
+
+.cellplay0{
+    display: flex;
+    background-color: rgb(172, 33, 236);
+    border-color: rgb(136, 116, 136);
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 10vh;
+    width: 10vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-direction: row;
+}
+
+.cellplay1{
+    display: flex;
+    background-color: rgb(255, 147, 7);
+    border-color: rgb(136, 116, 136);
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 10vh;
+    width: 10vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-direction: row;
+}
+

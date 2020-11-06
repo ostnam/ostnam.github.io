@@ -21,6 +21,8 @@ function createrow() { // this function creates a single row in the DOM
         cell.setAttribute("id", "cell" + rowcount + i) // each cell will have its own id
         cell.setAttribute("class", "cell")
         cell.setAttribute("onclick", "playerinput(id)")
+        cell.setAttribute("onmouseover", "hover(id)")
+        cell.setAttribute("onmouseleave", "unhover(id)")
         currentrow.append(cell)
     }
     rowcount++
@@ -49,12 +51,31 @@ function playerinput(id) {
     currentPlay++
 }
 
-while (TERMINATE != true) {
-    if (INIT === false) {
-        init()
-        continue
-    }
-    else {
-        break
-    }
+function hover(id) {
+    // Identify the cell that has to be highlighted
+    let newId = id.replace("cell", "")
+    let hoveredColumn = newId[(newId.length - 1)]
+        // let hoveredRow = newId.slice(0, -1)
+    let finalRow = floor[hoveredColumn]
+    // Highlight the cell
+    let hoveredCellId = "cell" + finalRow + hoveredColumn
+    let hoveredCell = document.getElementById(hoveredCellId)
+    hoveredCell.setAttribute("class", "cellhover" + (currentPlay % 2))
 }
+
+
+function unhover(id) {
+    // Identify the cell that has to be highlighted
+    let newId = id.replace("cell", "")
+    let hoveredColumn = newId[(newId.length - 1)]
+        // let hoveredRow = newId.slice(0, -1)
+    let finalRow = floor[hoveredColumn]
+    // Highlight the cell
+    let hoveredCellId = "cell" + finalRow + hoveredColumn
+    let hoveredCell = document.getElementById(hoveredCellId)
+    hoveredCell.setAttribute("class", "cell")
+}
+
+if (INIT === false) {
+    init()
+    }

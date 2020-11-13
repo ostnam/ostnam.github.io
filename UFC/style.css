@@ -1,0 +1,160 @@
+html{
+    background-color: #000000;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+body{
+    height: 90%;
+}
+
+#top{
+    color: white;
+    height: 10vh;
+}
+
+#UFC{
+    display: flex;
+    background-color: #303030;
+    height: 80vh;
+}
+
+#ICP{
+    width: fit-content;
+    height: 100%;
+    margin: 00;
+    border-color: hsl(217, 15%, 75%);
+    border-style: solid;
+}
+
+.topRowButton{
+    border-radius: 50%;
+    background-color: black;
+    width: 5vw;
+    height: 5vw;
+    display: inline-block;
+    flex-direction: row;
+    margin: auto;
+    
+    font-size: 1vw;
+    text-align: center;
+    line-height: 5vw;
+    font-weight: 700;
+}
+
+#COM{
+    vertical-align: middle;
+    line-height: 1vw;
+    display: inline-block;
+}
+
+#ICPtopRow{
+    height: 8vw;
+    width: fit-content;
+    margin: 0;
+    padding: auto;
+}
+
+#ICPmiddle{
+    width: fit-content;
+}
+
+.ICPmidButton{
+    background-color: hsl(217, 15%, 57%);
+    width: 12%;
+    height: 12%;
+    margin-left: 1%;
+    margin-right: 2.5%;
+    text-align: center;
+    line-height: 2vw;
+    border-radius: 10%;
+    font-size: 1vw;
+    font-weight: 700;
+}
+
+#ICPmidSpan{
+    height: 100%;
+    width: 100%;
+    font-size: 1vw;
+}
+
+.ICPmiddleRow{
+    height: 33%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vw;
+    width: 40vw;
+}
+
+.rocker{
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    margin-left: 5%;
+}
+
+.rockerbutton{ 
+    background-color: hsl(217, 15%, 57%);
+    text-align: center;
+    line-height: 5vw;
+    font-size: 5vw  ;
+}
+
+.fourway{ 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    flex-direction: row;
+    height: 60%;
+    width: 20%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+.fourwaybutton{
+    height: 90%;
+    width: 90%;
+    line-height: 300%;
+}
+
+#ICPlowRow{
+    height: 30vh;
+    display: flex;
+    flex-direction: row;
+}
+
+#DEDpane{
+    width: 30vw;
+    margin-left: 4%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#DEDcontainer{
+    border-style: solid;
+    border-radius: 5%;
+    border-width: 1em;
+    border-color: black;
+    height: fit-content;
+    width: fit-content;
+}
+
+.displayRow{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+
+.cell{
+    height: 2.44vw;
+    width: 2vw;
+    margin: 0;
+    background-color: #484F01;
+    color: #D8F51D;
+    font-family: monospace;
+    font-size: medium;
+    text-align: center;
+    line-height: 2.44vw;
+    font-size: 2.44vw;
+}

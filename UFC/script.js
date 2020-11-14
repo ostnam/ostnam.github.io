@@ -3,7 +3,7 @@ const DEDscreen = () => {
                           "                        ",
                           "                        ",
                           "                        ",
-                          "                        "]
+                          "                        "];
     // the display is stored in an array of 5 strings (one for each row), there are 24 cells per row
     
     let planeData = {
@@ -11,25 +11,31 @@ const DEDscreen = () => {
         COM2: 6,
         currentSTPT: 1,
         STPTMode: " ",
-        IFFModeStr: "12 4",
+        IFFModeStr: " 12 4",
         IFFCode: 7500,
         NavMode: "T",
         currentTACAN: "75X",
-        TIMESTR: "11:27:44"
-    }
+        timeStr: "00:00:00",
+        COM1str: "1     ",
+        COM2str: "6     ",
+        blink: 0,
+        currentDEDPage: "main",
+        currentDEDtab: 0,
+    };
 
-    const pageArray = {
-        "main": [
-               [` UHF ${planeData.COM1}  STPT   ${planeData.currentSTPT} ${planeData.STPTMode}`,
+
+    const pageBuilder = {
+        main: () => [
+               [`UHF ${planeData.COM1str}     STPT   ${planeData.currentSTPT}${planeData.STPTMode}`,
                 `                        `,
-                ` VHF ${planeData.COM2}     ${planeData.TIMESTR}`,
+                `VHF ${planeData.COM2str}      ${planeData.timeStr}`,
                 `                        `,
-                ` ${planeData.IFFModeStr}   ${planeData.IFFCODE} TIM ${planeData.NavMode} ${planeData.currentTACAN}`]
+                `${planeData.IFFModeStr}   ${planeData.IFFCode} TIM   ${planeData.NavMode} ${planeData.currentTACAN}`]
               ],
-    }
+    };
 
 
-    const init = () => {
+    const init = () => { // this function is supposed to be called once at the beginning of the page to create the DED
         let DEDcontainer = document.getElementById("DEDcontainer")
         for (i=0; i<5; i++){
             let newRow = document.createElement("div")
@@ -45,30 +51,44 @@ const DEDscreen = () => {
                 addedRow.append(cell)
             }
         }
-        setPage("main")
-        updateDisplay()
-    }
+        updateDisplayArray(planeData.currentDEDPage)
+        updateDisplayHTML()
+    };
 
-    const updateDisplay = () => {
+
+    const updateDisplayHTML = () => {
         for (i in displayArray) {
             for (j in displayArray[i]) {
                 document.getElementById("cell" + i + j).textContent=displayArray[i][j]
             }
         }
-    }
-    
-    const setPage = (page, tab=0) => {
-        let selectedPage = pageArray[page]
-        for (i in selectedPage[tab]) {
-            displayArray[i] = selectedPage[tab][i]
-        }
-        updateDisplay()
-    }
+    };
   
-    return {init, updateDisplay, setPage}
+    const updatePlaneData = () => {
+        planeData.blink++;
+        d = new Date();
+        timeStr = d.toLocaleTimeString();
+        planeData.timeStr = timeStr;
+    };
+
+
+    const updateDisplayArray = (page, tab=0) => {
+        let selectedPage = page;
+        let displayArrayBuilder = pageBuilder[selectedPage]();
+        displayArray = displayArrayBuilder[tab];
+        planeData.currentDEDPage = page;
+    }
+
+    function refresh(page=planeData.currentDEDPage, tab=planeData.currentDEDtab) {
+        updatePlaneData();
+        updateDisplayArray(page, tab);
+        updateDisplayHTML();
+    }
+    init();
+    return {refresh};
 }
 
 
+let DEDscreen1 = DEDscreen();
 
-DEDscreen1 = DEDscreen()
-DEDscreen1.init()
+setInterval(function(){DEDscreen1.refresh()}, 1000);

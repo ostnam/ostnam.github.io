@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 html{
     background-color: #000000;
     font-family: "Roboto", sans-serif;
@@ -35,11 +37,15 @@ body{
     display: inline-block;
     flex-direction: row;
     margin: auto;
-    
     font-size: 1vw;
     text-align: center;
     line-height: 5vw;
     font-weight: 700;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #COM{
@@ -70,6 +76,11 @@ body{
     border-radius: 10%;
     font-size: 1vw;
     font-weight: 700;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #ICPmidSpan{
@@ -98,6 +109,11 @@ body{
     text-align: center;
     line-height: 5vw;
     font-size: 5vw  ;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .fourway{ 
@@ -115,6 +131,11 @@ body{
     height: 90%;
     width: 90%;
     line-height: 300%;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #ICPlowRow{
@@ -150,11 +171,13 @@ body{
     height: 2.44vw;
     width: 2vw;
     margin: 0;
-    background-color: #484F01;
-    color: #D8F51D;
-    font-family: monospace;
+    background-color: #434901;
+    color: #e1ff1f;
+    font-family: "Roboto-Mono", monospace;
     font-size: medium;
     text-align: center;
     line-height: 2.44vw;
     font-size: 2.44vw;
+    font-weight: 700;
+    font
 }

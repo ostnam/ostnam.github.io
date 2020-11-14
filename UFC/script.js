@@ -21,17 +21,23 @@ const DEDscreen = () => {
         blink: 0,
         currentDEDPage: "main",
         currentDEDtab: 0,
+        currentRockerLocation: 0,
     };
 
 
     const pageBuilder = {
-        main: () => [
-               [`UHF ${planeData.COM1str}     STPT   ${planeData.currentSTPT}${planeData.STPTMode}`,
+        main: () => {
+            let rockerValues = [" ", " ", " "];
+            rockerValues[planeData.currentRockerLocation % rockerValues.length] = "↕";
+            let templateArray = [
+               [`UHF${rockerValues[0]}${planeData.COM1str}     STPT ${rockerValues[1]} ${planeData.currentSTPT}${planeData.STPTMode}`,
                 `                        `,
-                `VHF ${planeData.COM2str}      ${planeData.timeStr}`,
+                `VHF${rockerValues[2]}${planeData.COM2str}      ${planeData.timeStr}`,
                 `                        `,
                 `${planeData.IFFModeStr}   ${planeData.IFFCode} TIM   ${planeData.NavMode} ${planeData.currentTACAN}`]
-              ],
+              ];
+            return templateArray;
+            },
     };
 
 
@@ -77,18 +83,37 @@ const DEDscreen = () => {
         let displayArrayBuilder = pageBuilder[selectedPage]();
         displayArray = displayArrayBuilder[tab];
         planeData.currentDEDPage = page;
-    }
+    };
 
     function refresh(page=planeData.currentDEDPage, tab=planeData.currentDEDtab) {
         updatePlaneData();
         updateDisplayArray(page, tab);
         updateDisplayHTML();
     }
+
+    const buttonFunctions = {
+        "fourWayUp": function () {
+            planeData.currentRockerLocation++;
+            refresh();
+        },
+        "fourWayDown": function () {
+            planeData.currentRockerLocation++;
+            refresh();
+        },
+        "rockerUp": function () {
+            refresh();
+        },
+        "rockerDown": function () {
+            refresh();
+        },
+
+    };
+
     init();
-    return {refresh};
+    return {refresh, buttonFunctions};
 }
 
 
-let DEDscreen1 = DEDscreen();
+let DEDScreen1 = DEDscreen();
 
-setInterval(function(){DEDscreen1.refresh()}, 1000);
+setInterval(function(){DEDScreen1.refresh()}, 1000);

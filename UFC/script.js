@@ -1,10 +1,17 @@
 const DEDscreen = () => {
+    // init() starts stuff
+    // refresh() updates the display by running each update function
+    // buttonFunctions stores the function of each button
+
+
     let displayArray =   ["                        ",
                           "                        ",
                           "                        ",
                           "                        ",
                           "                        "];
-    // the display is stored in an array of 5 strings (one for each row), there are 24 cells per row
+
+    let highlightedCells = [];
+
     
     let planeData = {
         COM1: 292.30,
@@ -22,6 +29,7 @@ const DEDscreen = () => {
         COM2mode: "preset",
     }; // this object stores various data
 
+
     let planeDataStr = {
         STPTMode: " ",
         IFFModeStr: " 12 4",
@@ -31,7 +39,7 @@ const DEDscreen = () => {
         COM1: "1     ",
         COM2: "6     ",
         currentSTPT: "1 ",
-    }
+    };
 
 
     const pageBuilder = {
@@ -81,10 +89,17 @@ const DEDscreen = () => {
         for (i in displayArray) {
             for (j in displayArray[i]) {
                 document.getElementById("cell" + i + j).textContent=displayArray[i][j]
+                if (highlightedCells.includes(i + j)){
+                    console.log("yeeee")
+                    document.getElementById("cell" + i + j).setAttribute("class", "highlightedCell");
+                } else {
+                    document.getElementById("cell" + i + j).setAttribute("class", "cell");
+                }
             }
         }
     }; // updates the HTML page
   
+
     const updatePlaneData = () => {
         planeData.blink++;
     }; // updates planeData
@@ -97,12 +112,15 @@ const DEDscreen = () => {
         planeData.currentDEDPage = page;
     }; // updates the display array
 
+
     function refresh(page=planeData.currentDEDPage, tab=planeData.currentDEDtab) {
         updatePlaneData();
         updatePlaneDataStr();
         updateDisplayArray(page, tab);
+        updateHighlightedCells(page, tab);
         updateDisplayHTML();
     } // is supposed to be called every time something changes so that everything is updated nicely
+
 
     const buttonFunctions = {
         "fourWayUp": function () {
@@ -164,6 +182,7 @@ const DEDscreen = () => {
         },
     }; // stores the function of each ICP button
 
+
     function updatePlaneDataStr() {
         if (planeData.STPTMode % 2 === 0){
             planeDataStr.STPTMode = " ";
@@ -219,6 +238,19 @@ const DEDscreen = () => {
         timeStr = d.toLocaleTimeString();
         planeDataStr.timeStr = timeStr;
     } // updates the strings that will be fed to pageBuilder()
+
+    function updateHighlightedCells(page, tab) {
+        switch(page) {
+            case "main":
+                highlightedCells = [];
+                break;
+            case "list":
+                highlightedCells = ["11",  "17", "113", "119",
+                                    "21",  "27", "213", "219",
+                                    "31",  "37", "313", "319"];
+                break;
+        }
+    }
 
     init();
     return {refresh, buttonFunctions};

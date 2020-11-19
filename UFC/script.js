@@ -27,9 +27,11 @@ const DEDscreen = () => {
         currentRockerLocation: 0,
         COM1mode: "man",
         COM2mode: "preset",
+        currentScratchpadLocation: 0,
+        currentScratchpadLength: 0,
     }; // this object stores various data
-
-
+    
+    
     let planeDataStr = {
         STPTMode: " ",
         IFFModeStr: " 12 4",
@@ -39,6 +41,7 @@ const DEDscreen = () => {
         COM1: "1     ",
         COM2: "6     ",
         currentSTPT: "1 ",
+        scratchpadContent: " ",
     };
 
 
@@ -61,6 +64,18 @@ const DEDscreen = () => {
                               ` 4NAV  5MAN  6INS  EDLNK`,
                               ` 7EWS  8MODE 9VRP  0MISC`,
                               `                        `]];
+        },
+        COM1: () => {
+            let scratchpadValues = [" ", " "];
+            scratchpadValues[planeData.currentScratchpadLocation % scratchpadValues.length] = "*";
+            planeData.currentScratchpadLength = 6;
+            scratchpadFill();
+            let templateArray = [[`      UHF               `,
+                                  `                ${scratchpadValues[0]}${planeDataStr.scratchpadContent}${scratchpadValues[0]}`,
+                                  `                        `,
+                                  ` PRE  ${planeDataStr.COM1} ↕      TOD `,
+                                  `                    NB  `]]
+            return templateArray;
         }
     }; // this array stores the template of each DED page and tab and generate the proper strings
 
@@ -90,7 +105,6 @@ const DEDscreen = () => {
             for (j in displayArray[i]) {
                 document.getElementById("cell" + i + j).textContent=displayArray[i][j]
                 if (highlightedCells.includes(i + j)){
-                    console.log("yeeee")
                     document.getElementById("cell" + i + j).setAttribute("class", "highlightedCell");
                 } else {
                     document.getElementById("cell" + i + j).setAttribute("class", "cell");
@@ -123,6 +137,67 @@ const DEDscreen = () => {
 
 
     const buttonFunctions = {
+        "COM1": function () {
+            planeData.currentDEDPage = "COM1";
+            planeData.currentDEDtab = 0;
+            refresh();
+        },
+        "COM2": function () {
+            planeData.currentDEDPage = "COM2";
+            planeData.currentDEDtab = 0;
+            refresh();
+        },
+        "IFF": function () {
+            planeData.currentDEDPage = "IFF";
+            planeData.currentDEDtab = 0;
+        },
+        "one": function () {
+            scratchpadEdit("1");
+            refresh();
+        },
+        "two": function () {
+            scratchpadEdit("2");
+            refresh();
+        },
+        "three": function () {
+            scratchpadEdit("3");
+            refresh();
+        },
+        "four": function () {
+            scratchpadEdit("4");
+            refresh();
+        },
+        "five": function () {
+            scratchpadEdit("5");
+            refresh();
+        },
+        "six": function () {
+            scratchpadEdit("6");
+            refresh();
+        },
+        "seven": function () {
+            scratchpadEdit("7");
+            refresh();
+        },
+        "eight": function () {
+            scratchpadEdit("8");
+            refresh();
+        },
+        "nine": function () {
+            scratchpadEdit("9");
+            refresh();
+        },
+        "zero": function () {
+            scratchpadEdit("0");
+            refresh();
+        },
+        "RCL": function () {
+            planeDataStr.scratchpadContent.length = planeDataStr.scratchpadContent.length - 1
+            refresh();
+        },
+        "ENTR": function () {
+            refresh();
+        },
         "fourWayUp": function () {
             planeData.currentRockerLocation++;
             refresh();
@@ -179,6 +254,20 @@ const DEDscreen = () => {
         "list": function(){
             planeData.currentDEDPage = "list";
             planeData.currentDEDtab = 0;
+            refresh();
+        },
+        "RTN": function(){
+            planeData.currentDEDPage = "main";
+            planeData.currentDEDtab = 0;
+            refresh();
+        },
+        "ENTR": function(){
+            switch(planeData.currentDEDPage){
+                case "COM1":
+                    scratchpadPush();
+                    break;
+            }
+            refresh();
         },
     }; // stores the function of each ICP button
 
@@ -249,14 +338,76 @@ const DEDscreen = () => {
                                     "21",  "27", "213", "219",
                                     "31",  "37", "313", "319"];
                 break;
+            case "COM1":
+                switch(planeData.currentScratchpadLocation % 2) {
+                    case 0:
+                        highlightedCells = ["116", "123"]
+                        break;
+                    case 1:
+                        highlightedCells = []
+                        break;
+                }
+        }
+    }
+
+    function scratchpadEdit(button) {
+        planeDataStr.scratchpadContent = planeDataStr.scratchpadContent.trim();
+        console.log(planeDataStr.scratchpadContent.length)
+        if (planeDataStr.scratchpadContent.length < planeData.currentScratchpadLength) {
+            let newStr = planeDataStr.scratchpadContent.split("");
+            newStr.push(button);
+            planeDataStr.scratchpadContent = newStr.join("");
+        }
+        scratchpadFill();
+    }
+
+    function scratchpadFill() {
+        while (planeDataStr.scratchpadContent.length < planeData.currentScratchpadLength) {
+            let newStr = planeDataStr.scratchpadContent.split("");
+            newStr.unshift(" ");
+            planeDataStr.scratchpadContent = newStr.join("");
+            }
+    }
+
+    function scratchpadPush() {
+        let scratchpadData = planeDataStr.scratchpadContent.trim()
+        switch(planeData.currentDEDPage) {
+            case COM1:
+                switch(currentScratchpadLocation %2) {
+                    case 0:
+                        switch(scratchpadData.length) {
+                            case 0:
+                                break;
+                            case 1:
+                            case 2:
+                                planeData.COM1mode = "preset";
+                                planeData.COM1 = Number(scratchpadData);
+                                break;
+                            case 3:
+                                planeData.COM1mode = "man";
+                                planeData.COM1 = Number((scratchpadData + "." + "00"));
+                                break;
+                            case 4:
+                                planeData.COM1mode = "man";
+                                planeData.COM1 = Number((scratchpadData.split(0, 3) + "." + scratchpadData[3] + "0"));
+                                break;
+                            case 5:
+                                planeData.COM1mode = "man";
+                                planeData.COM1 = Number((scratchpadData.split(0, 3) + "." + scratchpadData.split(3, 5)))
+                            case 6:
+                                
+                            
+                        }
+
+                        break;
+                }
         }
     }
 
     init();
-    return {refresh, buttonFunctions};
+    setInterval(function(){refresh()}, 1000);
+    return {buttonFunctions};
 }
 
 
 let DEDScreen1 = DEDscreen();
-
-setInterval(function(){DEDScreen1.refresh()}, 1000);
